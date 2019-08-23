@@ -1,0 +1,25 @@
+workstations:
+  User: wsadmin
+  IdentityFile: ~/.ssh/wsadmin
+  ProxyJump: gw.workstations
+  Hosts:
+    - workstation1
+    - workstation2
+    - workstation3:
+        ProxyJump: host1
+    - boss:
+        Hostname: workstation4
+    - gw.workstations:
+        Hostname: 10.0.1.1
+        ProxyJump: no
+        IdentityFile: ~/.ssh/admin
+        LocalForward: 9000 workstation1:443
+
+servers:
+  User: serveradmin
+  IdentityFile: ~/.ssh/serveradmin
+  Hosts:
+    - dnsserver:
+        Hostname: 10.0.0.2
+    - webappserver:
+        Hostname: 10.0.0.10
