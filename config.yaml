@@ -13,7 +13,9 @@ workstations:
         Hostname: 10.0.1.1
         ProxyJump: no
         IdentityFile: ~/.ssh/admin
-        LocalForward: 9000 workstation1:443
+        LocalForward:
+          - 9000 workstation1:443
+          - 9001 workstation2:443
 
 servers:
   User: serveradmin

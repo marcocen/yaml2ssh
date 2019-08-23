@@ -26,14 +26,18 @@ with open(args.infile, 'r') as stream:
                     hostconfig = host[x]
                     host = x
                 print('Host {}'.format(host))
-                if 'Hostname' not in hostkeys:
-                    print('{}Hostname {}'.format(tab, host))
+                if 'Hostname' not in hostkeys: print('{}Hostname {}'.format(tab, host))
                 for key in hostkeys:
                     # Host config overrides the general config
-                    if key in hostconfig:
-                        if hostconfig[key]:
-                            print('{}{} {}'.format(tab, key, hostconfig[key]))
+                    if key in hostconfig and hostconfig[key]: value = hostconfig[key]
+                    else: value = config[key]
+
+                    if isinstance(value,list):
+                        for entry in value:
+                            print('{}{} {}'.format(tab, key, entry))
                     else:
-                        print('{}{} {}'.format(tab, key, config[key]))
+                        print('{}{} {}'.format(tab, key, value))
+
+
     except yaml.YAMLError as exc:
         print(exc)
